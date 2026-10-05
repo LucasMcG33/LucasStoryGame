@@ -10,14 +10,42 @@
 // --------------------------------------------------
 
 // First, we create a variable for the current scene being displayed
-let currentScene = "backyard";
+let currentScene = "preface";
 
 // Then, we create an object that stores the data for each scene,
 const scenes = {
-  // See "backyard" for the first example
-  backyard: {
-    title: "Location: Backyard",
-    character: "Interviewee:Grandma",
+
+  preface: {
+    title: "Preface",
+
+    text: "Late into the 32nd Millennium, much in the solar system has changed. Over a millennium ago, Old Earth governments all rapidly and mysteriously collapsed, being replaced by the unified Earthen government known as ‘The Republic’. Currently there is a revolt against the government, and it is finally starting to fail. Recent raids led by these insurgents led to the destruction of a freighter carrying necessary supplies to a Republic mining station orbiting Titan, one of Saturn’s moons. The station is home to hundreds of thousands of civilians who now will be going without basic resources. With system-wide military response and industrial powerhouse of The Republic going into overdrive, plus the new even worse souring of public opinion, this revolt has been pushed to its last legs, forced into pocket groups within the Kuiper Belt. These people are terrorists, and must be stopped. You are one of Earth’s finest soldiers, sent to an underground vault discovered on Pluto to gather intelligence on the insurgents. For the millennia that The Republic has governed, a revolt has never seen success. Your job is to ensure it stays that way.",
+    
+    choices: [
+      {
+        text: "Continue"
+        action: function () {
+          updateScene("briefing");
+        }
+      }
+
+  }
+
+  briefing: {
+    title: "Briefing",
+    text: "This is the briefing. You can add any text you want here to set up the story.",
+    choices: [
+      {
+        text: "Start",
+        action: function () {
+          updateScene("decontamination");
+        }
+      }
+    ]
+  }
+  // See "decontamination" for the first example
+  decontamination: {
+    title: "Location: Decontamination",
+    // character: "Interviewee:Grandma",
     text: "Text: well what I remember happening is that Darcie went inside to play with her pretend kitchen, I heard her neighbor mention he was really hungry, and the dog ran around really quickly",
     // you can choose how many choices to include
     // each choice can have text, an action, and/or nextScene
@@ -50,7 +78,7 @@ const scenes = {
     choices: [
       {
         text: "Ask about the dog",
-        nextScene: "backyard"
+        nextScene: "decontamination"
       },
          {
         text: "Ask about the neighbor",
@@ -64,8 +92,8 @@ const scenes = {
     text: "The hallway is dark and silent.",
     choices: [
       {
-        text: "backyard",
-        nextScene: "lockedDoor"
+        text: "decontamination",
+        nextScene: "decontamination"
       }
     ]
   },
@@ -80,7 +108,7 @@ const scenes = {
       },
       {
         text: "Go back",
-        nextScene: "backyard"
+        nextScene: "decontamination"
       }
     ]
   },
