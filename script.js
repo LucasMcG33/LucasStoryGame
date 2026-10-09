@@ -10,29 +10,14 @@
 // --------------------------------------------------
 
 // First, we create a variable for the current scene being displayed
-let currentScene = "preface";
+let currentScene = "briefing";
 
 // Then, we create an object that stores the data for each scene,
 const scenes = {
 
-  preface: {
-    title: "Preface",
-
-    text: "Late into the 32nd Millennium, much in the solar system has changed. Over a millennium ago, Old Earth governments all rapidly and mysteriously collapsed, being replaced by the unified Earthen government known as ‘The Republic’. Currently there is a revolt against the government, and it is finally starting to fail. Recent raids led by these insurgents led to the destruction of a freighter carrying necessary supplies to a Republic mining station orbiting Titan, one of Saturn’s moons. The station is home to hundreds of thousands of civilians who now will be going without basic resources. With system-wide military response and industrial powerhouse of The Republic going into overdrive, plus the new even worse souring of public opinion, this revolt has been pushed to its last legs, forced into pocket groups within the Kuiper Belt. These people are terrorists, and must be stopped. You are one of Earth’s finest soldiers, sent to an underground vault discovered on Pluto to gather intelligence on the insurgents. For the millennia that The Republic has governed, a revolt has never seen success. Your job is to ensure it stays that way.",
-    
-    choices: [
-      {
-        text: "Continue"
-        action: function () {
-          updateScene("briefing");
-        }
-      }
-
-  }
-
   briefing: {
     title: "Briefing",
-    text: "This is the briefing. You can add any text you want here to set up the story.",
+    text: "~kzzzttt~ Your Mission Briefing is as follows: The vault is believed to hold valuable information on the locations of remaining insurgent pockets. You are being hot dropped onto Pluto’s surface with limited supplies and time, as the insurgents will likely be notified the minute the vault is opened. You will be given 5 minutes to infiltrate the Vault facility and gather any information you can before you are extracted. Be swift, be courageous. Long live Earth. Mission Control out. ~krrrttzz~",
     choices: [
       {
         text: "Start",
@@ -89,7 +74,7 @@ const scenes = {
 
   hallway: {
     title: "The Hallway",
-    text: "The hallway is dark and silent.",
+    text: "In the hallway you see seemingly recent footprints in the dust on the floor leading down the hall and off to the left",
     choices: [
       {
         text: "decontamination",
@@ -100,7 +85,7 @@ const scenes = {
 
    lockedDoor: {
     title: "The Locked Door",
-    text: "The door handle doesn't move.",
+    text: "The footprints lead to this door, but the door won't open. It seems to require a keycard to unlock.",
     choices: [
       {
         text: "Try to open it",
@@ -108,7 +93,7 @@ const scenes = {
       },
       {
         text: "Go back",
-        nextScene: "decontamination"
+        nextScene: "hallway"
       }
     ]
   },
@@ -237,8 +222,9 @@ function pickUpItem(itemName) {
 
 // Create a function that checks if the inventory contains one item and if so shows the win condition scene.
 function unlockDoor() {
-  if (inventory.includes("brass key")) {
-    updateScene("solution");
+  if (inventory.includes("Keycard")) {
+    messageDisplay.textContent = "You swipe the Keycard unlocking the door.";
+    updateScene("powerStation");
   } else {
     messageDisplay.textContent = "The door is locked.";
   }
