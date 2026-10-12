@@ -22,8 +22,8 @@ millennia The Republic has governed, a revolt has never seen success.
 Your job is to ensure it stays that way.
 </pre>
 
-<form>
-    <pre>Select Difficulty:</pre>
+<form method="GET">
+    <p><b>Select Difficulty:</b></p>
     <label for="difficulty-easy">Easy</label>
     <input type="radio" id="difficulty-easy" name="difficulty" value="easy">
     <label for="difficulty-medium">Medium</label>
@@ -33,7 +33,13 @@ Your job is to ensure it stays that way.
     <br>
     <input type="button" value="Press to Start" onclick="window.location.href='game.html'">
     <br><br><br>
-    <input type="button" value="About the Creator" onclick="window.location.href='about.html'">
+    <!-- <input type="button" value="About the Creator" onclick="window.location.href='about.html'"> -->
+    <!-- <br> -->
+    <a href="about.html">About the Creator</a>
     <br>
     <input type="email" id="email" name="email" placeholder="Enter your email for updates" style="width: 175px;">
+    <br><br>
+    <label for="donation">Please Donate to Support! Any amount helps!</label>
+    <br>
+    <input type="number" id="donation" name ="donation" placeholder="$5" style="width: 75px">
 </form>
