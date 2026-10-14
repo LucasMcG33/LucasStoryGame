@@ -209,18 +209,17 @@ const scenes = {
   },
   archives: {
     title: "The Archives",
-    text: "You enter a dimly lit room filled with old books and documents. It seems like a place where secrets are kept.",
+    text: "You enter a dimly lit room filled with old books and documents, picking up a small book on a desk. It seems like a place where secrets are kept.",
     choices: [
       {
-        text: "Search the room",
+        text: "Read the book",
         action: function () {
           messageDisplay.textContent = "You find a journal with some interesting notes sitting on a small desk.";
           pickUpItem("Survivors Journal");
+          wait(2000).then(() => {
+            updateScene("journal");
+          });
         }
-      },
-      {
-        text: "Retreat to Extraction",
-        nextScene: "extraction2"
       }
     ]
   },
@@ -232,10 +231,10 @@ const scenes = {
 
   journal: {
     title: "Survivors Journal",
-    text: "You open the journal and read about the experiences of the crew. The journal details the rise of the Republic and fall of Old Earth governments. In the aftermath of World War 4, after the fall of The East Asian Republic, the United Federation of America, and the European Union, a new government was formed called The Republic. The Republic was a coalition of  nations that sought to 'rebuild' civilization in their image, establishing a new world order. The 3 founding members of the Republic featured old United States of America pockets which remained after the founding of the United Federation, along with Chinese and Israeli pockets. The Republic was a totalitarian government that sought to control all aspects of life, and had engineered all 4 World Wars in an attempt to overthrow the Old World. The crew of this facility were part of a resistance movement against them, fighting tooth and nail to remove them from power. The journal speaks of how the resistance was failing, especially after The Republic attacked one of their own supply ships in an effort to hurt resistance recruiting. It worked.",
+    text: "You open the journal and read about the experiences of the insurgents. The journal details the rise of the Republic and fall of Old Earth governments. In the aftermath of World War 4, after the fall of The East Asian Republic, the United Federation of America, and the European Union, a new government was formed called The Republic. The Republic was a coalition of  nations that sought to 'rebuild' civilization in their image, establishing a new world order. The 3 founding members of the Republic featured old United States of America pockets which remained after the founding of the United Federation, along with Chinese and Israeli pockets. The Republic was a totalitarian government that sought to control all aspects of life, and had engineered all 4 World Wars in an attempt to overthrow the Old World. The crew of this facility were part of a resistance movement against them, fighting tooth and nail to remove them from power. The journal speaks of how the resistance was failing, especially after The Republic attacked one of their own supply ships in an effort to hurt resistance recruiting. It worked.",
     choices: [
       {
-        text: "Close the journal",
+        text: "Close the journal and extract",
         nextScene: "extraction2"
       }
     ]
@@ -380,3 +379,76 @@ function unlockVault(){
   }
 }
 
+//Timer
+// Timer configuration (5 minutes = 300 seconds)
+        const STARTING_TIME_SECONDS = 300; 
+        let timeRemaining = STARTING_TIME_SECONDS;
+        let timerInterval = null;
+
+        const display = document.getElementById('display');
+        const startStopBtn = document.getElementById('startStopBtn');
+        const resetBtn = document.getElementById('resetBtn');
+
+        // Formats time remaining into a MM:SS string
+        function updateDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            
+            // Format numbers to always have two digits
+            const formattedMinutes = String(minutes).padStart(2, '0');
+            const formattedSeconds = String(seconds).padStart(2, '0');
+            
+            display.textContent = `${formattedMinutes}:${formattedSeconds}`;
+
+            // Add a visual warning class when under 30 seconds
+            if (timeRemaining <= 30) {
+                display.classList.add('warning');
+            } else {
+                display.classList.remove('warning');
+            }
+        }
+
+        function startTimer() {
+            // Safety check: clear any existing intervals before starting a new one
+            clearInterval(timerInterval); 
+
+            timerInterval = setInterval(() => {
+                if (timeRemaining > 0) {
+                    timeRemaining--;
+                    updateDisplay();
+                } else {
+                    // Time runs out
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    startStopBtn.textContent = 'Start';
+                    alert("Time's up!");
+                }
+            }, 1000);
+
+            startStopBtn.textContent = 'Pause';
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            startStopBtn.textContent = 'Start';
+        }
+
+        // Toggle button between Start and Pause states
+        startStopBtn.addEventListener('click', () => {
+            if (timerInterval === null) {
+                startTimer();
+            } else {
+                pauseTimer();
+            }
+        });
+
+        // Reset button logic
+        resetBtn.addEventListener('click', () => {
+            pauseTimer();
+            timeRemaining = STARTING_TIME_SECONDS;
+            updateDisplay();
+        });
+
+        // Initialize display configuration on load
+        updateDisplay();
