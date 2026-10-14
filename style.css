@@ -1,0 +1,12 @@
+.time-display {
+            font-size: 6rem;
+            font-weight: bold;
+            font-variant-numeric: tabular-nums; /* Prevents text shifting */
+            margin-bottom: 1.5rem;
+            color: #75707c; /* Clean green accent color */
+            transition: color 0.5s ease;
+        }
+
+.time-display.warning {
+            color: #e63946; /* Changes to red when time is low */
+        }

@@ -22,51 +22,69 @@ const scenes = {
       {
         text: "Start",
         action: function () {
+          //timer starts here
           updateScene("decontamination");
         }
       }
     ]
-  }
+  },
   // See "decontamination" for the first example
   decontamination: {
     title: "Location: Decontamination",
     // character: "Interviewee:Grandma",
-    text: "Text: well what I remember happening is that Darcie went inside to play with her pretend kitchen, I heard her neighbor mention he was really hungry, and the dog ran around really quickly",
+    text: "As you enter the decontamination chamber to the vault, you hear faint alarms blare from inside. The countdown has begun. 5 minutes starts now.",
     // you can choose how many choices to include
     // each choice can have text, an action, and/or nextScene
     choices: [
       {
-        text: "Chase after the dog (-10 HP)",
+        text: "Click to Continue",
         action: function () {
-          updateHealth(-10);
         },
-        nextScene: "entrance"
-      },
-      {
-        text: "Ask about the neighbor",
-        nextScene: "hallway"
-      },
-      {
-          text: "Pick up the brass key",
-          action: function () {
-            pickUpItem("brass key");
-          },
-          nextScene: "hallway"
+        nextScene: "decontamination2"
       }
     ]
   },
 
-  entrance: {
-    title: "Location: Entrance",
-    character: "Interviewee:Neighbor",
-    text: "well what I remember...",
+  decontamination2: {
+    title: "Location: Decontamination",
+    text: "Seconds later, the alarms stop. The lights go out. The power seems to have been shut off somehow. Luckily, you had just enough time to cycle the decontamination chamber. Where should you go next?",
     choices: [
       {
-        text: "Ask about the dog",
-        nextScene: "decontamination"
+        text: "Go forward",
+        nextScene: "storage"
+      },
+      {
+        text: "Go right",
+        nextScene: "observatory"
+      }
+    ]
+  },
+
+  storage: {
+    title: "Location: Storage",
+    text: "This seems to be a small storage room. Non-perishable food packets are strewn about on a shelf, and boxes litter the floor.",
+    choices: [
+      {
+        text: "Search",
+        //-30s, 
+        action: function(){
+          messageDisplay.textContent = "The room only contains old provisions and supplies, no useful information. You continue on.";
+        },
+        nextScene: "hallway"
       },
          {
-        text: "Ask about the neighbor",
+        text: "Continue On",
+        nextScene: "hallway"
+      }
+    ]
+  },
+
+  observatory: {
+    title: "Location: Observatory",
+    text: "You enter a large room with a telescope in the center. The walls are littered with various monitors and control panels, with some calculations written out on a large white wall.",
+    choices: [
+      {
+        text: "Continue On",
         nextScene: "hallway"
       }
     ]
@@ -74,11 +92,23 @@ const scenes = {
 
   hallway: {
     title: "The Hallway",
-    text: "In the hallway you see seemingly recent footprints in the dust on the floor leading down the hall and off to the left",
+    text: "You see seemingly recent footprints in the dust on the floor leading down the hall and off to the left",
     choices: [
       {
-        text: "decontamination",
-        nextScene: "decontamination"
+        text: "Immediate Left",
+        nextScene: "storage"
+      },
+      {
+        text:"Far Left",
+        nextScene: "lockedDoor"
+      },
+      {
+        text:"Forward",
+        nextScene:"vault"
+      },
+      {
+        text:"Right",
+        nextScene:"crewQuarters"
       }
     ]
   },
@@ -98,11 +128,124 @@ const scenes = {
     ]
   },
 
-   solution: {
-    title: "The solution",
-    text: "You solved the mystery!",
-    
-  }
+    powerStation: {
+    title: "The Power Station",
+    text: "As the door squeaks open, you can see the footsteps leading to a lever on a generator. All the signage has been scratched away.Flip the lever?",
+    choices: [
+      {
+        text: "Flip the lever",
+        action: function () {
+          power=true;
+          messageDisplay.textContent = "You flip the lever, restoring power to the facility. Some extra doors and monitors are now probably accessible.";
+        },
+        nextScene: "hallway"
+      },
+      {
+        text: "Go back",
+        nextScene: "hallway"
+      }
+    ]
+  },
+  crewQuarters: {
+    title: "The Crew Quarters",
+    text: "You enter a room with a few beds and some personal belongings. It seems the crew left in a hurry, leaving their quarters behind.",
+    choices: [
+      {
+        text: "Search the room",
+        action: function () {
+          //-30s
+          pickUpItem("Keycard");
+          messageDisplay.textContent = "You found a Keycard in some old clothes";
+        },
+        nextScene: "crewQuarters"
+      },
+      {
+        text:"Go to the left",
+        nextScene:"controlRoom"
+      },
+      {
+        text: "Go back",
+        nextScene: "hallway"
+      }
+    ]
+  },
+  controlRoom: {
+    title: "The Control Room",
+    text: "Monitors line the walls giving off a faint hum. The control panel lights up with the option to access the vault.",
+    choices: [
+      {
+        text: "Access the vault",
+        action: function () {
+          if (power) {
+            messageDisplay.textContent ="You open the vault, backtracking through the hallway.";
+            updateScene("vault");
+          } else {
+            messageDisplay.textContent = "The button doesn't seem to do anything. It requires power to function.";
+          }
+        }
+      },
+      {
+        text: "Go back",
+        nextScene: "crewQuarters"
+      }
+    ]
+  },
+  vault: {
+    title: "The Vault",
+    text: "The Vault is filled with numerous books along with food, water, and two sleeping pads. As you look around, you see a small wooden door at the back of the vault behind a bookshelf.",
+    choices: [
+      {
+        text: "Open the door",
+        action: function () {
+          messageDisplay.textContent = "You open the door and find a hidden passage.";
+          updateScene("archives");
+        }
+      },
+      {
+        text: "Extract from the facility",
+        nextScene: "extraction"
+      }
+    ]
+  },
+  archives: {
+    title: "The Archives",
+    text: "You enter a dimly lit room filled with old books and documents. It seems like a place where secrets are kept.",
+    choices: [
+      {
+        text: "Search the room",
+        action: function () {
+          messageDisplay.textContent = "You find a journal with some interesting notes sitting on a small desk.";
+          pickUpItem("Survivors Journal");
+        }
+      },
+      {
+        text: "Retreat to Extraction",
+        nextScene: "extraction2"
+      }
+    ]
+  },
+
+  extraction: {
+    title: "Extraction",
+    text: "You have successfully completed your mission and are being extracted from the facility. With the information you gathered, the insurgents will soon be dealt with. Thank you, brave soldier.",
+},
+
+  journal: {
+    title: "Survivors Journal",
+    text: "You open the journal and read about the experiences of the crew. The journal details the rise of the Republic and fall of Old Earth governments. In the aftermath of World War 4, after the fall of The East Asian Republic, the United Federation of America, and the European Union, a new government was formed called The Republic. The Republic was a coalition of  nations that sought to 'rebuild' civilization in their image, establishing a new world order. The 3 founding members of the Republic featured old United States of America pockets which remained after the founding of the United Federation, along with Chinese and Israeli pockets. The Republic was a totalitarian government that sought to control all aspects of life, and had engineered all 4 World Wars in an attempt to overthrow the Old World. The crew of this facility were part of a resistance movement against them, fighting tooth and nail to remove them from power. The journal speaks of how the resistance was failing, especially after The Republic attacked one of their own supply ships in an effort to hurt resistance recruiting. It worked.",
+    choices: [
+      {
+        text: "Close the journal",
+        nextScene: "extraction2"
+      }
+    ]
+  },
+
+  extraction2: {
+    title: "Extraction",
+    text: "You have successfully completed your mission and are being extracted from the facility. Now it is a question of what you will do next. Help the rebels, or put them fully in the grave.",
+},
+
 };
 
 // --------------------------------------------------
@@ -227,6 +370,13 @@ function unlockDoor() {
     updateScene("powerStation");
   } else {
     messageDisplay.textContent = "The door is locked.";
+  }
+}
+
+function unlockVault(){
+  if(power){
+    messageDisplay.textContent="You press the button, then hear a loud sliding noise from out in the hall. The vault is now open.";
+    updateScene("crewQuarters")
   }
 }
 
