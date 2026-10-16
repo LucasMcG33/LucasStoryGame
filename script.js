@@ -17,12 +17,12 @@ const scenes = {
 
   briefing: {
     title: "Briefing",
-    text: "~kzzzttt~ Your Mission Briefing is as follows: The vault is believed to hold valuable information on the locations of remaining insurgent pockets. You are being hot dropped onto Pluto’s surface with limited supplies and time, as the insurgents will likely be notified the minute the vault is opened. You will be given 5 minutes to infiltrate the Vault facility and gather any information you can before you are extracted. Be swift, be courageous. Long live Earth. Mission Control out. ~krrrttzz~",
+    text: "~kzzzttt~ Your Mission Briefing is as follows: The vault is believed to hold valuable information on the locations of remaining insurgent pockets. You are being hot dropped onto Pluto’s surface with limited supplies and time, as the insurgents will likely be notified the minute the vault is opened. You will be given a brief window to infiltrate the Vault facility and gather any information you can before you are extracted. Be swift, be courageous. Long live Earth. Mission Control out. ~krrrttzz~",
     choices: [
       {
         text: "Start",
         action: function () {
-          //timer starts here
+          startCountdown(),
           updateScene("decontamination");
         }
       }
@@ -245,6 +245,11 @@ const scenes = {
     text: "You have successfully completed your mission and are being extracted from the facility. Now it is a question of what you will do next. Help the rebels, or put them fully in the grave.",
 },
 
+  failure: {
+    title: "Mission Failed",
+    text: "You have failed to extract from the Vault and meet up with your extraction team. You are now MIA, unable to return home."
+  }
+
 };
 
 // --------------------------------------------------
@@ -379,76 +384,8 @@ function unlockVault(){
   }
 }
 
-//Timer
-// Timer configuration (5 minutes = 300 seconds)
-        const STARTING_TIME_SECONDS = 300; 
-        let timeRemaining = STARTING_TIME_SECONDS;
-        let timerInterval = null;
+function startCountdown() {
+  document.getElementById("time-display").classList.toggle('hidden');
+  let now = new Date().getTime();
+}
 
-        const display = document.getElementById('display');
-        const startStopBtn = document.getElementById('startStopBtn');
-        const resetBtn = document.getElementById('resetBtn');
-
-        // Formats time remaining into a MM:SS string
-        function updateDisplay() {
-            const minutes = Math.floor(timeRemaining / 60);
-            const seconds = timeRemaining % 60;
-            
-            // Format numbers to always have two digits
-            const formattedMinutes = String(minutes).padStart(2, '0');
-            const formattedSeconds = String(seconds).padStart(2, '0');
-            
-            display.textContent = `${formattedMinutes}:${formattedSeconds}`;
-
-            // Add a visual warning class when under 30 seconds
-            if (timeRemaining <= 30) {
-                display.classList.add('warning');
-            } else {
-                display.classList.remove('warning');
-            }
-        }
-
-        function startTimer() {
-            // Safety check: clear any existing intervals before starting a new one
-            clearInterval(timerInterval); 
-
-            timerInterval = setInterval(() => {
-                if (timeRemaining > 0) {
-                    timeRemaining--;
-                    updateDisplay();
-                } else {
-                    // Time runs out
-                    clearInterval(timerInterval);
-                    timerInterval = null;
-                    startStopBtn.textContent = 'Start';
-                    alert("Time's up!");
-                }
-            }, 1000);
-
-            startStopBtn.textContent = 'Pause';
-        }
-
-        function pauseTimer() {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            startStopBtn.textContent = 'Start';
-        }
-
-        // Toggle button between Start and Pause states
-        startStopBtn.addEventListener('click', () => {
-            if (timerInterval === null) {
-                startTimer();
-            } else {
-                pauseTimer();
-            }
-        });
-
-        // Reset button logic
-        resetBtn.addEventListener('click', () => {
-            pauseTimer();
-            timeRemaining = STARTING_TIME_SECONDS;
-            updateDisplay();
-        });
-
-        // Initialize display configuration on load
-        updateDisplay();
