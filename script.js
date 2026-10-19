@@ -104,7 +104,7 @@ const scenes = {
       },
       {
         text:"Forward",
-        nextScene:"vault"
+        nextScene:"lockedVault"
       },
       {
         text:"Right",
@@ -187,6 +187,17 @@ const scenes = {
       {
         text: "Go back",
         nextScene: "crewQuarters"
+      }
+    ]
+  },
+
+  lockedVault:{
+    title: "Locked Vault Door",
+    text: "The vault door is locked. There may be some way to unlock it, maybe a console somewhere.",
+    choices: [
+      {
+        text: "Go back",
+        nextScene: "hallway"
       }
     ]
   },
