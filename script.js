@@ -32,7 +32,7 @@ const scenes = {
   decontamination: {
     title: "Location: Decontamination",
     // character: "Interviewee:Grandma",
-    text: "As you enter the decontamination chamber to the vault, you hear faint alarms blare from inside. The countdown has begun. 5 minutes starts now.",
+    text: "As you enter the decontamination chamber to the vault, you hear faint alarms blare from inside. The countdown has begun.",
     // you can choose how many choices to include
     // each choice can have text, an action, and/or nextScene
     choices: [
