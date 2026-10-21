@@ -37,7 +37,7 @@
     <section>
         <p> Time Remaining:</p>
         <ul>
-            <li id="time-display" class="hidden" style="color: #7c4646;"> </li>
+            <li id="time-display" style="color: #7c4646;"> </li>
         </ul>
 
         <p> Inventory:</p>
@@ -51,9 +51,7 @@
 
     </main>
     <footer>
-        <!-- Display the countdown timer in an element -->
-            <p id="demo"></p>
-
+        
 <script>
 // Set the date we're counting down to
 var counting = false;
@@ -61,7 +59,7 @@ var time = 3; //Number of minutes per mission
 //document.querySelector('input[name="difficulty"]:checked').value
 var countDownDate = new Date(Date.now() + time * 60 * 1000 + 2000);
 // Update the count down every 1 second
-//if(counting==true){
+
 var x = setInterval(function() {
 
   // Get today's date and time
@@ -75,7 +73,7 @@ var x = setInterval(function() {
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
   // Display the result in the element with id="time-display"
-  document.getElementById("time-display").innerHTML = minutes + "m " + seconds + "s ";
+  document.getElementById("time-display").innerHTML = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 
   // If the count down is finished, write some text
   if (distance < 0) {
@@ -83,10 +81,18 @@ var x = setInterval(function() {
     updateScene("failure");
   }
 }, 1000);
-//}
 
 function startCountdown() {
   let counting = true;
+}
+
+function searchRoom(){
+    if(seconds>=30){
+        seconds-=30;
+    } else {
+        minutes-=1;
+        seconds+=30;
+    }
 }
 </script>
     </footer>

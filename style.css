@@ -1,10 +1,10 @@
 .time-display {
-            /* font-size: 6rem;
+            font-size: 6rem;
             font-weight: bold;
             font-variant-numeric: tabular-nums; /* Prevents text shifting */
-            /* margin-bottom: 1.5rem; */
-            color: #7c4646; /* Clean green accent color */
-            /* transition: color 0.5s ease; */
+            margin-bottom: 1.5rem;
+            color: #7c4646;
+            transition: color 0.5s ease;
         }
 
 .time-display.warning {
@@ -14,3 +14,17 @@
 .hidden {
             display: none;
         }
+
+.home {
+    text-align: center; 
+    background-color: #1a1a1a; 
+    color: #f2f2f2; 
+    font-family: Arial, sans-serif;
+}
+
+.title {
+    vertical-align: middle; 
+    background: linear-gradient(to bottom, #ca780c, #fffb2b); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+}

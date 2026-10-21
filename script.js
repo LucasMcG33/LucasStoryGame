@@ -9,6 +9,11 @@
 // 3) add any new fields to the function below
 // --------------------------------------------------
 
+var power=false;
+let inventory = [];
+const inventoryDisplay = document.querySelector("#inventory-display");
+const messageDisplay = document.getElementById("message-display");
+
 // First, we create a variable for the current scene being displayed
 let currentScene = "briefing";
 
@@ -17,13 +22,21 @@ const scenes = {
 
   briefing: {
     title: "Briefing",
-    text: "~kzzzttt~ Your Mission Briefing is as follows: The vault is believed to hold valuable information on the locations of remaining insurgent pockets. You are being hot dropped onto Pluto’s surface with limited supplies and time, as the insurgents will likely be notified the minute the vault is opened. You will be given a brief window to infiltrate the Vault facility and gather any information you can before you are extracted. Be swift, be courageous. Long live Earth. Mission Control out. ~krrrttzz~",
+    text: "~kzzzttt~ Your Mission Briefing is as follows: The vault is believed to hold valuable information on the locations of remaining insurgent pockets. You are being hot dropped onto Pluto’s surface with limited time, as the insurgents will likely be notified the minute the vault is opened. You will be given a brief window to infiltrate the Vault facility and gather any information you can before you are extracted. Be swift, be courageous. Long live Earth. Mission Control out. ~krrrttzz~",
     choices: [
       {
-        text: "Start",
+        text: "Breach the Vault",
         action: function () {
           startCountdown(),
           updateScene("decontamination");
+          console.log("Breaching");
+
+        }
+      },
+      {
+        text: "Test",
+        action: function () {
+          pickUpKeycard();
         }
       }
     ]
@@ -68,6 +81,7 @@ const scenes = {
         text: "Search",
         //-30s, 
         action: function(){
+          searchRoom();
           messageDisplay.textContent = "The room only contains old provisions and supplies, no useful information. You continue on.";
         },
         nextScene: "hallway"
@@ -148,20 +162,27 @@ const scenes = {
   },
   crewQuarters: {
     title: "The Crew Quarters",
-    text: "You enter a room with a few beds and some personal belongings. It seems the crew left in a hurry, leaving their quarters behind.",
+    text: "You enter a room with a few beds and some personal belongings. It seems the crew left in a hurry, leaving their clothes and personal belongings behind.",
     choices: [
       {
         text: "Search the room",
         action: function () {
-          //-30s
+          //-30s,
           pickUpItem("Keycard");
-          messageDisplay.textContent = "You found a Keycard in some old clothes";
         },
         nextScene: "crewQuarters"
       },
       {
         text:"Go to the left",
-        nextScene:"controlRoom"
+        action: function () {
+          if(power){
+            messageDisplay.textContent = "You enter the control room, the monitors flicker to life as you enter.";
+            updateScene("controlRoom");
+          } else {
+            messageDisplay.textContent = "You enter the control room, but the monitors are all dark. Maybe they will function once power is restored.";
+            updateScene("controlRoomNoPower");
+          }
+        }
       },
       {
         text: "Go back",
@@ -180,7 +201,7 @@ const scenes = {
             messageDisplay.textContent ="You open the vault, backtracking through the hallway.";
             updateScene("vault");
           } else {
-            messageDisplay.textContent = "The button doesn't seem to do anything. It requires power to function.";
+            messageDisplay.textContent = "The button doesn't seem to do anything. It requires the generator to be turned on to function.";
           }
         }
       },
@@ -190,7 +211,16 @@ const scenes = {
       }
     ]
   },
-
+  controlRoomNoPower: {
+    title: "The Control Room",
+    text: "Dark monitors line the walls, all silent. Maybe they would turn on if the power was restored.",
+    choices: [
+      {
+        text: "Go back",
+        nextScene: "crewQuarters"
+      }
+    ]
+  },
   lockedVault:{
     title: "Locked Vault Door",
     text: "The vault door is locked. There may be some way to unlock it, maybe a console somewhere.",
@@ -358,11 +388,9 @@ updateHealth(0);
 // --------------------------------------------------
 
 // Create a variable for inventory
-let inventory = [];
+
 
 // Display current inventory
-const inventoryDisplay = document.querySelector("#inventory-display");
-const messageDisplay = document.getElementById("message-display");
 
 // Create a function to update inventory 
 function pickUpItem(itemName) {
@@ -370,6 +398,15 @@ function pickUpItem(itemName) {
     // Show the updated inventory on the page
   inventory.push(itemName);
   inventoryDisplay.textContent = inventory.join(", ");
+  //messageDisplay.textContent = "You found a Keycard in some old clothes";
+
+}
+
+function pickUpKeycard() {
+  console.log("Picking up Keycard");
+  inventory.push("Keycard");
+  inventoryDisplay.textContent = inventory.join(", ");
+  // messageDisplay.textContent = "You found a Keycard in some old clothes";
 }
 
 // --------------------------------------------------
@@ -390,8 +427,8 @@ function unlockDoor() {
 
 function unlockVault(){
   if(power){
-    messageDisplay.textContent="You press the button, then hear a loud sliding noise from out in the hall. The vault is now open.";
-    updateScene("crewQuarters")
+    messageDisplay.textContent="You press the button, then hear a loud sliding noise from out in the hall. The vault is now open. You backtrack through the hallway to the vault.";
+    updateScene("vault");
   }
 }
 
