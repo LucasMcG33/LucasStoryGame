@@ -1,10 +1,10 @@
 .time-display {
-            font-size: 6rem;
+            /* font-size: 6rem;
             font-weight: bold;
             font-variant-numeric: tabular-nums; /* Prevents text shifting */
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.5rem; */
             color: #7c4646;
-            transition: color 0.5s ease;
+            /* transition: color 0.5s ease; */
         }
 
 .time-display.warning {
@@ -15,7 +15,7 @@
             display: none;
         }
 
-.home {
+body {
     text-align: center; 
     background-color: #1a1a1a; 
     color: #f2f2f2; 
