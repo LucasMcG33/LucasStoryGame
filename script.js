@@ -27,16 +27,9 @@ const scenes = {
       {
         text: "Breach the Vault",
         action: function () {
-          startCountdown(),
           updateScene("decontamination");
           console.log("Breaching");
 
-        }
-      },
-      {
-        text: "Test",
-        action: function () {
-          pickUpKeycard();
         }
       }
     ]

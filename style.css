@@ -34,12 +34,17 @@ body {
     border: rgba(255, 0, 0, 0.452);
     border-radius: 20px;
     border-style:dotted;
+    margin: 5%;
+    padding: 15px;
 }
 
 .card{
+    width: 43%;
+    margin: 15px 25%;
     border-radius: 20px;
     border: #ca780c;
     padding: 3%;
     text-align: center;
     background-color: #f1b565;
+    
 }
