@@ -30,10 +30,10 @@ body {
 }
 
 .header{
-    color: #7c4646;
-    border: red;
+    color: #c85411;
+    border: rgba(255, 0, 0, 0.452);
     border-radius: 20px;
-    border-style:dashed;
+    border-style:dotted;
 }
 
 .card{
