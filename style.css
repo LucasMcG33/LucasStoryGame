@@ -22,11 +22,17 @@ body {
     font-family: Arial, sans-serif;
 }
 
+@font-face {
+  font-family: 'Micro-Charted'; /* set name */
+  src: url(Micro5Charted-Regular.ttf); /* url of the font */
+}
+
 .title { 
     vertical-align: middle; 
     background: linear-gradient(to bottom, #ca780c, #fffb2b); 
     -webkit-background-clip: text; 
     -webkit-text-fill-color: transparent;
+    font-family:'Micro Charted','Times New Roman', Times, serif ;
 }
 
 .header{
