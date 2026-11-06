@@ -43,6 +43,10 @@ body {
   font-style: italic;
 }
 
+.redaction{
+  font-family: 'Redaction70', monospace;
+}
+
 
 .title { 
     vertical-align: middle; 

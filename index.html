@@ -4,17 +4,36 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="fire.png"> 
     <!-- Favicon bar image ^ -->
+
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
  </head>
 
  <body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand redaction title" href="index.html">EMBER</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link redaction" href="about.html">About the Creator</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="text-center bg-dark text-white" data-bs-theme="dark">
+    <br>
 <h1 class="title">
     <img src="fire.png" alt="Ember" width="30">
     EMBER
     <img src="fire.png" alt="Ember" width="30">
 </h1>
-<h3 style="font-family:'Redaction70';">Born to Rise Again</h3>
+<h3 class="redaction">Born to Rise Again</h3>
 
-<pre>   Late into the 32nd Millennium, much in the solar system has changed. Over a 
+<pre class="p-3">   Late into the 32nd Millennium, much in the solar system has changed. Over a 
 millennium ago, Old Earth governments all rapidly and mysteriously collapsed, being replaced 
 by the unified Earthen government known as <em>The Republic</em>. 
     Currently there is a revolt against the government, and it is finally starting to fail. Recent 
@@ -34,25 +53,29 @@ Ensure it stays that way.
 </pre>
 
 <form method="GET">
-    <p style="font-family:'Redaction70';"><b>Select Difficulty:</b></p>
-    <label for="difficulty-easy">Easy</label>
-    <input type="radio" id="difficulty-easy" name="difficulty" value="5" required>
-    <label for="difficulty-medium">Medium</label>
-    <input type="radio" id="difficulty-medium" name="difficulty" value="3" required>
-    <label for="difficulty-hard">Hard</label>
-    <input type="radio" id="difficulty-hard" name="difficulty" value="1" required>
-    <br>
-    <input type="submit" value="Press to Start" onclick="window.location.href='game.html'">
+    <p class="redaction"><b>Select Difficulty:</b></p>
+    <input type="radio" class="btn-check" name="difficulty" id="easy" autocomplete="off" checked>
+    <label class="btn" for="easy">Easy</label>
+
+    <input type="radio" class="btn-check" name="difficulty" id="normal" autocomplete="on">
+    <label class="btn" for="normal">Normal</label>
+
+    <input type="radio" class="btn-check" name="difficulty" id="hard" autocomplete="off">
+    <label class="btn" for="hard">Hard</label>
+
+    <br><br>
+    <a href="game.html" class="btn btn-outline-light" role="button" aria-disabled="true">Start</a>
     <br><br><br>
-    <!-- <input type="button" value="About the Creator" onclick="window.location.href='about.html'"> -->
-    <!-- <br> -->
-    <a href="about.html" >About the Creator</a>
-    <br>
+
     <input type="email" id="email" name="email" placeholder="Enter your email for updates" style="width: 175px;">
     <br><br>
     <label for="donation">Please Donate to Support! Any amount helps!</label>
     <br>
     <input type="number" id="donation" name ="donation" placeholder="$5" style="width: 75px">
 </form>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
 </body>
